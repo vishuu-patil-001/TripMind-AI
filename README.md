@@ -1,246 +1,574 @@
-﻿<h1 align="center">TripMind AI</h1>
+﻿# TripMind AI
+
+> A multi-agent AI travel planner that researches flights, hotels, weather, and destinations, then turns the results into a personalized day-by-day itinerary.
 
 <p align="center">
-  <img src="https://img.shields.io/badge/status-in%20progress-f59e0b.svg" alt="Status">
-  <a href="https://github.com/Vishuu_Patil_001/TripMind-AI/issues"><img src="https://img.shields.io/github/issues/Vishuu_Patil_001/TripMind-AI.svg" alt="GitHub Issues"></a>
-  <a href="https://github.com/Vishuu_Patil_001/TripMind-AI/pulls"><img src="https://img.shields.io/github/issues-pr/Vishuu_Patil_001/TripMind-AI.svg" alt="GitHub Pull Requests"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPL--3.0-blue.svg" alt="License"></a>
+  <img src="https://img.shields.io/badge/Python-3.11+-3776AB.svg" alt="Python 3.11+">
+  <img src="https://img.shields.io/badge/FastAPI-0.141+-009688.svg" alt="FastAPI">
+  <img src="https://img.shields.io/badge/LangGraph-1.x-1C3C3C.svg" alt="LangGraph">
+  <img src="https://img.shields.io/badge/PostgreSQL-required-336791.svg" alt="PostgreSQL">
+  <img src="https://img.shields.io/badge/License-GPL--3.0-blue.svg" alt="License">
 </p>
 
 ---
 
-<p align="center"> A multi-agent AI travel planner. Describe the trip you want in
-    plain English and get back flights, hotels, weather and a day-by-day
-    itinerary â€” researched for you in about a minute.
-    <br>
-</p>
+## Overview
 
-## ðŸ“ Table of Contents
+Planning a trip often means switching between multiple services for flights, hotels, weather, destination research, and itinerary planning.
 
-- [About](#about)
-- [Getting Started](#getting_started)
-- [Usage](#usage)
-- [Troubleshooting](#troubleshooting)
-- [Contributing](#contributing)
-- [Authors](#authors)
-- [Acknowledgements](#acknowledgement)
+**TripMind AI** brings these tasks together into a single conversational travel-planning experience.
 
-## ðŸ§ About <a name = "about"></a>
+You describe the trip you want in natural language, for example:
 
-Planning a trip usually means juggling half a dozen browser tabs â€” one for flights, another for hotels, a third for the weather, and a notes app where you try to fit it all into a sensible order. TripMind AI collapses that into a single conversation. You describe the trip you want in your own words, the way you'd describe it to a friend â€” *"Plan a 10 day Europe trip from India in April, mid-range budget"* â€” and a team of AI specialists goes and researches it. One looks into flights, another finds places to stay, another checks what the weather will be doing while you're there. Their findings are then pulled together into a single plan you can actually act on, complete with a day-by-day schedule and a cost estimate. The result is a trip plan in about a minute, rather than an afternoon of research. Each part of the trip gets its own attention:
+> Plan a 10 day Europe trip from India in April with a mid-range budget.
 
-| | |
+The application uses a multi-agent workflow to research different parts of the trip and combine the results into a structured travel plan.
+
+### What it can help with
+
+| Area | Description |
 |---|---|
-| âœˆï¸ **Flights** | Likely airports, airlines on the route, typical duration and fare range |
-| ðŸ¨ **Hotels** | Accommodation options matched to your destination and budget |
-| ðŸŒ¤ï¸ **Weather** | Current conditions and the forecast, with travel advice |
-| ðŸ—ºï¸ **Itinerary** | A realistic day-by-day plan you can actually follow |
-| ðŸ’° **Budget** | An estimated breakdown of what the trip will cost |
+| Flights | Airport and airline information for the requested route |
+| Hotels | Accommodation research for the destination |
+| Weather | Current conditions and forecast information |
+| Destination | Destination-specific research and recommendations |
+| Itinerary | A structured day-by-day travel plan |
+| Budget | Estimated trip costs based on the generated plan |
+| Conversations | Saved trips and follow-up questions |
 
-Plans are saved as you go, so you can reopen a trip later and ask follow-up
-questions without starting over.
+---
 
-## ðŸ Getting Started <a name = "getting_started"></a>
+## How It Works
 
-These instructions will get you a copy of the project up and running on your
-local machine.
+TripMind AI is built around a multi-agent workflow.
+
+A typical request moves through several specialized components:
+
+```text
+User Request
+     |
+     v
+TripMind AI Application
+     |
+     v
++-------------------+
+| LangGraph Workflow|
++-------------------+
+     |
+     +----> Destination Research
+     |
+     +----> Flight Research
+     |
+     +----> Hotel Research
+     |
+     +----> Weather Research
+     |
+     +----> Itinerary Generation
+     |
+     v
+Final Travel Plan
+     |
+     +----> Plan
+     +----> Itinerary
+     +----> Flights
+     +----> Hotels
+     +----> Weather
+```
+
+The project uses LangGraph to coordinate the workflow and external services to retrieve travel-related information.
+
+---
+
+## Key Features
+
+- Natural-language trip planning
+- Multi-agent research workflow
+- Flight and airport research
+- Hotel research
+- Weather and forecast information
+- Destination research
+- Day-by-day itinerary generation
+- Budget estimation
+- Saved trip sessions
+- Follow-up questions on existing trips
+- Markdown export
+- Print-friendly results
+- Light and dark mode
+- PostgreSQL-backed persistence
+- Optional Redis caching
+- API-key based integration with external services
+
+---
+
+## Technology Stack
+
+### Backend
+
+- Python 3.11+
+- FastAPI
+- Uvicorn
+- LangGraph
+- LangChain
+- LangChain-Groq
+- MCP
+- PostgreSQL
+- Psycopg
+- Redis
+
+### External Services
+
+- Groq — LLM inference
+- Tavily — web research
+- AviationStack — aviation information
+- OpenWeather — weather information
+
+### Frontend
+
+The frontend is implemented with:
+
+- HTML
+- CSS
+- JavaScript
+- Jinja2 templates
+- Markdown rendering
+
+### Development & Deployment
+
+- `uv` for Python dependency management
+- Docker
+- Docker Compose
+- Vercel configuration included
+- PostgreSQL for persistent application state
+- Optional Redis caching
+
+---
+
+## Project Structure
+
+```text
+TripMind-AI/
+│
+├── app.py
+├── pyproject.toml
+├── uv.lock
+├── Dockerfile
+├── docker-compose.yml
+├── vercel.json
+├── .env.example
+├── .gitignore
+├── .dockerignore
+├── LICENSE
+├── README.md
+│
+├── frontend/
+│   ├── static/
+│   │   ├── css/
+│   │   │   └── styles.css
+│   │   └── js/
+│   │       ├── app.js
+│   │       └── markdown.js
+│   │
+│   └── templates/
+│       └── index.html
+│
+├── src/
+│   ├── agents/
+│   │   ├── destination.py
+│   │   ├── final_agent.py
+│   │   ├── flight_agent.py
+│   │   ├── hotel_agent.py
+│   │   ├── itinerary_agent.py
+│   │   ├── prompts.py
+│   │   └── weather_agent.py
+│   │
+│   ├── api/
+│   │   ├── sessions.py
+│   │   └── validation.py
+│   │
+│   ├── clients/
+│   │   ├── cache.py
+│   │   ├── checkpointer.py
+│   │   └── llm.py
+│   │
+│   ├── config/
+│   │   ├── session.py
+│   │   └── settings.py
+│   │
+│   ├── graph/
+│   │   ├── graph.py
+│   │   ├── runner.py
+│   │   └── state.py
+│   │
+│   ├── mcp_servers/
+│   │   ├── config.py
+│   │   ├── diagnostics.py
+│   │   ├── local.py
+│   │   ├── remote.py
+│   │   └── weather_server.py
+│   │
+│   └── utils/
+│       └── async_utils.py
+│
+└── scripts/
+    └── build-frontend.sh
+```
+
+---
+
+## Getting Started
 
 ### Prerequisites
 
-You'll need the following before you start:
+Before running TripMind AI locally, install:
 
-- **Python 3.11**
-- **[uv](https://docs.astral.sh/uv/)** â€” used to install dependencies
-- **A PostgreSQL database** â€” a free [Render](https://render.com/) instance works fine
-- **API keys** from the services below. All of them have free tiers:
-  - [Groq](https://console.groq.com/)
-  - [Tavily](https://tavily.com/)
-  - [AviationStack](https://aviationstack.com/)
-  - [OpenWeather](https://openweathermap.org/api)
+- Python 3.11 or newer
+- `uv`
+- PostgreSQL
+- Git
 
-### Installing
+You will also need API credentials for the external services used by the application.
 
-Clone the repository and move into it:
+---
+
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/Vishuu_Patil_001/TripMind-AI.git
+git clone https://github.com/vishuu-patil-001/TripMind-AI.git
 cd TripMind-AI
 ```
 
-Install the dependencies:
+---
+
+### 2. Install dependencies
+
+This project uses `uv` for dependency management.
 
 ```bash
 uv sync
 ```
 
-Create a file named `.env` in the project root and add your keys:
+---
 
-```dotenv
-# Required
-GROQ_API_KEY=your_groq_key
-DATABASE_URL=postgresql://user:password@host:5432/dbname
+### 3. Configure environment variables
 
-# Service keys
-TAVILY_API_KEY=your_tavily_key
-AVIATIONSTACK_API_KEY=your_aviationstack_key
-OPENWEATHER_API_KEY=your_openweather_key
+Create a `.env` file in the project root.
 
-# Optional
-GROQ_MODEL=openai/gpt-oss-20b
+You can use `.env.example` as the starting point:
+
+```bash
+copy .env.example .env
 ```
 
-Here's what each one is for:
+Then edit `.env` and provide your actual credentials.
 
-| Variable | Required | What it's for |
+Example:
+
+```dotenv
+GROQ_API_KEY=your_groq_api_key
+GROQ_MODEL=openai/gpt-oss-20b
+
+TAVILY_API_KEY=your_tavily_api_key
+AVIATIONSTACK_API_KEY=your_aviationstack_api_key
+OPENWEATHER_API_KEY=your_openweather_api_key
+
+DATABASE_URL=postgresql://username:password@host:5432/database
+
+REDIS_URL=redis://localhost:6379/0
+CACHE_ENABLED=true
+
+HOST=127.0.0.1
+PORT=8000
+RELOAD=true
+```
+
+### Environment variables
+
+| Variable | Required | Purpose |
 |---|:---:|---|
-| `GROQ_API_KEY` | âœ… | Powers the AI planning |
-| `DATABASE_URL` | âœ… | Saves your trips so you can return to them |
-| `TAVILY_API_KEY` | âœ… | Hotel search |
-| `AVIATIONSTACK_API_KEY` | âœ… | Airport and airline information |
-| `OPENWEATHER_API_KEY` | âœ… | Weather and forecasts |
-| `GROQ_MODEL` | âŒ | Switch the AI model without editing any code |
+| `GROQ_API_KEY` | Yes | LLM access |
+| `GROQ_MODEL` | No | Model used by the application |
+| `TAVILY_API_KEY` | Yes | Web/travel research |
+| `AVIATIONSTACK_API_KEY` | Yes | Aviation and airport information |
+| `OPENWEATHER_API_KEY` | Yes | Weather information |
+| `DATABASE_URL` | Yes | PostgreSQL persistence |
+| `REDIS_URL` | No | Redis cache connection |
+| `CACHE_ENABLED` | No | Enables/disables caching |
+| `HOST` | No | Application host |
+| `PORT` | No | Application port |
+| `RELOAD` | No | Development reload option |
 
-Your `.env` file is ignored by Git. Never commit real keys.
+> **Security:** Never commit your `.env` file or real API keys to GitHub.
 
-Now start the app:
+---
+
+## 4. Start the application
+
+Run:
 
 ```bash
 uv run python app.py
 ```
 
-Open **<http://127.0.0.1:8000>** in your browser. If you see the planner with a
-green *API connected* dot at the bottom of the sidebar, you're ready to go.
+The application should start on:
 
-## ðŸŽˆ Usage <a name="usage"></a>
-
-### Planning a trip
-
-Type your request into the box at the bottom of the screen and press **Enter**.
-Anything conversational works:
-
-> Plan a 10 day Europe trip from India in April, mid-range budget
-
-> I want a relaxed 5 day trip to Rome and Florence in September for two people
-
-Not sure where to start? Click one of the suggestion cards on the home screen.
-
-A plan takes **30â€“90 seconds** to build, and you'll see each stage as it
-progresses.
-
-### Using the trip builder
-
-If you'd rather fill in fields than write a sentence, click the **sliders icon**
-to the left of the message box. Enter your origin, destination, dates, duration,
-number of travellers and budget, pick the things you're interested in, then hit
-**Write my prompt**. Your request is composed for you, ready to send or edit.
-
-### Reading your plan
-
-Your results are split into tabs so you can jump straight to what you need:
-
-**Plan** Â· **Itinerary** Â· **Flights** Â· **Hotels** Â· **Weather**
-
-### Saving, exporting and revisiting
-
-- Every trip is saved to the sidebar automatically â€” click any one to reopen it
-- Ask follow-up questions on an open trip and it remembers the context
-- Use the icons at the top of a result to **copy**, **download as Markdown** or **print**
-- Click **New trip** to start fresh
-- Switch between **light and dark mode** with the sun/moon icon at the bottom of the sidebar
-
-## ðŸ¤” Troubleshooting <a name = "troubleshooting"></a>
-
-<details>
-<summary><b>The page loads but planning fails</b></summary>
-
-Check the status indicator at the bottom of the sidebar. If it says *API
-unreachable*, the app has stopped â€” restart it with `uv run python app.py`.
-Otherwise, check the terminal you started the app in for the error.
-</details>
-
-<details>
-<summary><b>An error says the model does not exist</b></summary>
-
-AI providers retire models over time. List the ones your key can use:
-
-```bash
-curl -s https://api.groq.com/openai/v1/models \
-  -H "Authorization: Bearer $GROQ_API_KEY"
+```text
+http://127.0.0.1:8000
 ```
 
-Pick one from the list and set it as `GROQ_MODEL` in your `.env` file.
-</details>
+Open that address in your browser.
 
-<details>
-<summary><b>An error says DATABASE_URL is missing</b></summary>
+---
 
-The app needs a PostgreSQL database to save your trips. Add a connection string
-to your `.env` file â€” see [Installing](#getting_started).
-</details>
+## Using TripMind AI
 
-<details>
-<summary><b>Plans take a long time</b></summary>
+### Natural-language planning
 
-This is expected. Several specialists research your trip in turn, and each step
-involves live data and AI calls. 30â€“90 seconds is normal.
-</details>
+Enter a request such as:
 
-## ðŸ¤ Contributing <a name = "contributing"></a>
+```text
+Plan a 7 day trip to Japan from India in October for two people with a mid-range budget.
+```
 
-Contributions are welcome. This project is actively being developed, so there's
-plenty to pick up.
+Or:
 
-### Getting set up
+```text
+Plan a relaxed 5 day trip to Rome and Florence for two people.
+```
 
-1. **Fork** the repository and clone your fork
-2. Follow [Getting Started](#getting_started) to install everything
-3. Create a branch for your work:
+The application processes the request through its research and planning workflow.
+
+---
+
+### Trip Builder
+
+The application also provides a structured trip builder.
+
+You can provide information such as:
+
+- Origin
+- Destination
+- Dates
+- Duration
+- Number of travelers
+- Budget
+- Travel interests
+
+The application then helps construct the trip request.
+
+---
+
+### Generated Results
+
+Trip results are organized into sections such as:
+
+- **Plan**
+- **Itinerary**
+- **Flights**
+- **Hotels**
+- **Weather**
+
+You can review the different parts of the generated travel plan without having to manually research each category separately.
+
+---
+
+## Data Persistence
+
+TripMind AI uses PostgreSQL to persist application state.
+
+The PostgreSQL connection is configured through:
+
+```dotenv
+DATABASE_URL=...
+```
+
+The project also supports Redis as an optional caching layer.
+
+```dotenv
+REDIS_URL=redis://localhost:6379/0
+CACHE_ENABLED=true
+```
+
+When Redis is not configured, the application can operate without the cache.
+
+---
+
+## Docker
+
+A Docker configuration is included in the repository.
+
+To start the application using Docker Compose:
+
+```bash
+docker compose up --build
+```
+
+The included Compose configuration can provide the application, PostgreSQL, and Redis services for local development.
+
+Before using Docker, make sure the required environment variables are configured in your `.env` file.
+
+---
+
+## Troubleshooting
+
+### The application does not start
+
+Check that Python and `uv` are installed:
+
+```bash
+python --version
+uv --version
+```
+
+Then reinstall/synchronize dependencies:
+
+```bash
+uv sync
+```
+
+---
+
+### `GROQ_API_KEY` is missing
+
+Make sure the project root contains a `.env` file with:
+
+```dotenv
+GROQ_API_KEY=your_actual_key
+```
+
+Do not put the key into source code.
+
+---
+
+### `DATABASE_URL` is missing
+
+The application requires PostgreSQL persistence.
+
+Make sure `.env` contains a valid PostgreSQL connection string:
+
+```dotenv
+DATABASE_URL=postgresql://username:password@host:5432/database
+```
+
+Do not commit the real connection string to Git.
+
+---
+
+### The selected model is unavailable
+
+LLM providers may change the models available to an API key over time.
+
+If the configured model is unavailable, update:
+
+```dotenv
+GROQ_MODEL=your_available_model
+```
+
+using a model currently available to your Groq account.
+
+---
+
+### The application takes time to generate a plan
+
+Trip planning involves multiple research and AI operations. Depending on the configured services and network conditions, generation can take some time.
+
+---
+
+## Security
+
+This repository is designed to keep credentials outside the source code.
+
+The following types of values should remain private:
+
+- API keys
+- Database passwords
+- PostgreSQL connection strings containing credentials
+- Redis credentials
+- Langfuse secret keys
+- Other service credentials
+
+Use `.env` for local secrets and environment-variable configuration for deployment.
+
+Before pushing changes, verify that no credentials have been added accidentally:
+
+```bash
+git status
+```
+
+You can also search the tracked files for common credential names:
+
+```bash
+git grep -n -I -E "GROQ_API_KEY|TAVILY_API_KEY|AVIATIONSTACK_API_KEY|OPENWEATHER_API_KEY|DATABASE_URL|REDIS_URL"
+```
+
+Seeing variable names or placeholders in documentation is expected. Real credential values should not appear in tracked source files.
+
+---
+
+## Development
+
+Create a feature branch before making larger changes:
 
 ```bash
 git checkout -b feature/your-feature-name
 ```
 
-### Making your changes
-
-- Keep each pull request focused on one thing
-- Match the style of the code around you
-- Check the app still runs end to end before you open a pull request
-- Never commit your `.env` file or any API keys
-
-### Submitting your work
-
-Commit with a message that says what changed and why:
+After making changes, test the application locally:
 
 ```bash
-git commit -m "Add support for multi-city trips"
+uv sync
+uv run python app.py
 ```
 
-Push to your fork:
+Keep commits focused and descriptive.
+
+Example:
 
 ```bash
-git push origin feature/your-feature-name
+git commit -m "Improve trip planning workflow"
 ```
-
-Then open a **pull request** against `main` describing what you changed, why,
-and how you tested it.
-
-### Reporting bugs and suggesting ideas
-
-Open an [issue](https://github.com/Vishuu_Patil_001/TripMind-AI/issues).
-For bugs, include what you did, what you expected, what happened instead, and
-any error output from the terminal.
-
-## ðŸŽ‰ Acknowledgements <a name = "acknowledgement"></a>
-
-- [Groq](https://groq.com/) for fast AI inference
-- [Tavily](https://tavily.com/), [AviationStack](https://aviationstack.com/) and
-  [OpenWeather](https://openweathermap.org/) for the live travel data
 
 ---
 
-Licensed under the **GNU General Public License v3.0**. See [LICENSE](LICENSE).
+## Contributing
 
+Contributions and improvements are welcome.
 
+A typical contribution workflow is:
 
+1. Fork the repository.
+2. Clone your fork.
+3. Create a feature branch.
+4. Make your changes.
+5. Test the application.
+6. Commit the changes.
+7. Push the branch.
+8. Open a pull request.
 
+Please avoid committing secrets, generated credentials, or local environment files.
 
+---
+
+## License
+
+This project is licensed under the **GNU General Public License v3.0**.
+
+See [LICENSE](LICENSE) for the complete license text.
+
+---
+
+## Acknowledgements
+
+TripMind AI uses several open-source libraries and external services, including:
+
+- FastAPI
+- LangChain
+- LangGraph
+- MCP
+- PostgreSQL
+- Redis
+- Groq
+- Tavily
+- AviationStack
+- OpenWeather
+
+The respective projects and services retain their own licenses and terms of use.
