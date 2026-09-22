@@ -24,3 +24,6 @@ dependencies = [
     "tavily>=1.1.0",
     "uvicorn>=0.52.4",
 ]
+
+[tool.vercel]
+entrypoint = "app.py"
