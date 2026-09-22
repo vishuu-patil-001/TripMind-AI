@@ -1,0 +1,17 @@
+# Vercel only builds the static frontend (scripts/build-frontend.sh -> dist/).
+# Everything the backend needs lives on Render.
+.venv/
+__pycache__/
+*.py[cod]
+.git/
+src/
+app.py
+Dockerfile
+docker-compose.yml
+.dockerignore
+pyproject.toml
+uv.lock
+.python-version
+LICENSE
+.claude/
+node_modules/

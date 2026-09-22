@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TripMind AI — Multi-Agent Travel Planner</title>
+  <meta name="description" content="A LangGraph multi-agent system that plans flights, hotels, weather and day-by-day itineraries." />
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body>
+
+  <!-- ambient background -->
+  <div class="aurora" aria-hidden="true">
+    <span class="blob blob-1"></span>
+    <span class="blob blob-2"></span>
+    <span class="blob blob-3"></span>
+    <span class="grid"></span>
+  </div>
+
+  <div class="layout">
+    <main class="main">
+
+      <header class="topbar">
+        <a class="brand" href="/">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.8 19.2 16 11l3.5-3.5a2.1 2.1 0 0 0-3-3L13 8 4.8 6.2a.8.8 0 0 0-.8 1.3L8 11l-2 2-2.2-.5a.6.6 0 0 0-.6 1L5 16l2.5 1.8a.6.6 0 0 0 1-.6L8 15l2-2 3.5 4a.8.8 0 0 0 1.3-.8Z"/>
+            </svg>
+          </span>
+          <span class="brand-text">
+            <strong>TripMind</strong>
+            <em>AI</em>
+          </span>
+        </a>
+
+        <div class="topbar-actions">
+          <button class="status" id="apiStatus" data-state="checking" type="button" title="Open settings">
+            <span class="status-dot"></span>
+            <span class="status-text">Checking…</span>
+          </button>
+
+          <button class="btn btn-soft btn-sm" id="newTripBtn" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <span class="btn-label">New trip</span>
+          </button>
+
+          <button class="icon-btn" id="settingsBtn" type="button" aria-label="Settings" title="Settings">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg>
+          </button>
+
+          <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle colour theme" title="Toggle theme">
+            <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg>
+            <svg class="ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <div class="conversation" id="conversation">
+
+        <!-- ---------- no live API: shown instead of the hero ---------- -->
+        <section class="gate" id="setupGate" hidden>
+          <span class="gate-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+          </span>
+
+          <h2>No Live API</h2>
+          <p class="gate-sub" id="gateSub">
+            The server has no API keys configured, so the agents cannot run.
+            Add them below to start planning.
+          </p>
+
+          <div class="gate-creds" id="gateCreds"></div>
+
+          <div class="gate-actions">
+            <button class="btn btn-primary" id="gateSave" type="button">
+              <span class="btn-label">Connect</span>
+              <span class="spinner" aria-hidden="true"></span>
+            </button>
+          </div>
+
+          <p class="gate-foot">
+            Keys entered here last for this browser session only. To configure them
+            once for everyone, add them to the server&rsquo;s <code>.env</code> and restart.
+          </p>
+        </section>
+
+        <!-- ---------- empty / hero state ---------- -->
+        <section class="hero" id="hero">
+          <h2>Tell us the trip.<br />We&rsquo;ll handle the <span class="grad">logistics</span>.</h2>
+          <p class="hero-sub">
+            Flights, hotels, weather and a realistic day-by-day itinerary — researched
+            by specialised agents and assembled into one plan.
+          </p>
+
+          <div class="suggestions" id="suggestions">
+            <button class="suggestion" type="button" data-prompt="Plan a 7 day Japan trip from Dhaka in April with a mid-range budget, focused on food and temples.">
+              <span class="suggestion-emoji">🇯🇵</span>
+              <span class="suggestion-body">
+                <strong>7 days in Japan</strong>
+                <small>From Dhaka · food &amp; temples</small>
+              </span>
+            </button>
+            <button class="suggestion" type="button" data-prompt="I want a 5 day Paris trip in July from Delhi. Find flights, hotels near the centre and an itinerary under $2000.">
+              <span class="suggestion-emoji">🗼</span>
+              <span class="suggestion-body">
+                <strong>Paris under $2000</strong>
+                <small>5 days · July · from Delhi</small>
+              </span>
+            </button>
+            <button class="suggestion" type="button" data-prompt="Plan a 4 day beach getaway to Bali from Singapore next month for two people, relaxed pace.">
+              <span class="suggestion-emoji">🏝️</span>
+              <span class="suggestion-body">
+                <strong>Bali long weekend</strong>
+                <small>4 days · 2 travellers</small>
+              </span>
+            </button>
+            <button class="suggestion" type="button" data-prompt="Plan a 10 day Europe rail trip from London covering Amsterdam, Berlin and Prague on a backpacker budget.">
+              <span class="suggestion-emoji">🚆</span>
+              <span class="suggestion-body">
+                <strong>Europe by rail</strong>
+                <small>10 days · backpacker</small>
+              </span>
+            </button>
+          </div>
+        </section>
+
+        <div class="messages" id="messages"></div>
+      </div>
+
+      <!-- ---------- composer ---------- -->
+      <div class="composer-wrap">
+        <div class="builder" id="builder" hidden>
+          <div class="builder-grid">
+            <label class="field">
+              <span>From</span>
+              <input type="text" id="fFrom" placeholder="Dhaka" autocomplete="off" />
+            </label>
+            <label class="field">
+              <span>To</span>
+              <input type="text" id="fTo" placeholder="Tokyo" autocomplete="off" />
+            </label>
+            <label class="field">
+              <span>Departure</span>
+              <input type="date" id="fDate" />
+            </label>
+            <label class="field field-sm">
+              <span>Days</span>
+              <input type="number" id="fDays" min="1" max="60" placeholder="7" />
+            </label>
+            <label class="field field-sm">
+              <span>Travellers</span>
+              <input type="number" id="fPeople" min="1" max="20" placeholder="2" />
+            </label>
+            <label class="field">
+              <span>Budget</span>
+              <input type="text" id="fBudget" placeholder="$2000" autocomplete="off" />
+            </label>
+          </div>
+          <div class="builder-interests">
+            <span class="field-span">Interests</span>
+            <div class="chips" id="interestChips">
+              <button class="chip" type="button" data-value="food">🍜 Food</button>
+              <button class="chip" type="button" data-value="history">🏛️ History</button>
+              <button class="chip" type="button" data-value="nature">🌿 Nature</button>
+              <button class="chip" type="button" data-value="nightlife">🌃 Nightlife</button>
+              <button class="chip" type="button" data-value="shopping">🛍️ Shopping</button>
+              <button class="chip" type="button" data-value="adventure">🧗 Adventure</button>
+              <button class="chip" type="button" data-value="relaxation">🧘 Relaxation</button>
+            </div>
+          </div>
+          <div class="builder-foot">
+            <button class="btn btn-ghost btn-sm" type="button" id="builderClear">Clear</button>
+            <button class="btn btn-soft btn-sm" type="button" id="builderApply">Write my prompt</button>
+          </div>
+        </div>
+
+        <form class="composer" id="composer" autocomplete="off">
+          <button type="button" class="icon-btn composer-tool" id="builderToggle" aria-label="Open trip builder" title="Trip builder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h10M4 18h6"/><circle cx="18" cy="12" r="2"/><circle cx="14" cy="18" r="2"/></svg>
+          </button>
+          <textarea id="input" rows="1" placeholder="Plan a 7 day trip to Tokyo from Dhaka in April, mid-range budget…" aria-label="Describe your trip"></textarea>
+          <button type="submit" class="btn btn-primary send-btn" id="sendBtn" aria-label="Plan trip">
+            <svg class="ico-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4 20-7Z"/></svg>
+            <span class="spinner" aria-hidden="true"></span>
+          </button>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <!-- ============ SETTINGS ============ -->
+  <div class="modal-scrim" id="settingsScrim" hidden></div>
+  <div class="modal" id="settingsModal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle" hidden>
+    <div class="modal-head">
+      <div class="modal-heading">
+        <h2 id="settingsTitle">Settings</h2>
+        <p>Keys you enter here stay in server memory for this browser session only — they are never written to disk.</p>
+      </div>
+      <button class="icon-btn" id="settingsClose" type="button" aria-label="Close settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <div class="modal-body" id="credList"></div>
+
+    <div class="modal-foot">
+      <button class="btn btn-ghost btn-sm" id="settingsReset" type="button" title="Discard session keys and fall back to the server .env">Use server .env</button>
+      <button class="btn btn-primary btn-sm" id="settingsSave" type="button">
+        <span class="btn-label">Save for this session</span>
+        <span class="spinner" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="/static/js/markdown.js"></script>
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
+

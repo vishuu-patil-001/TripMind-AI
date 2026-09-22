@@ -1,0 +1,26 @@
+[project]
+name = "multi-agent-travel-agent-planner"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "airportsdata>=20260803",
+    "fastapi>=0.141.1",
+    "jinja2>=3.1.6",
+    "langchain>=1.3.17",
+    "langchain-groq>=1.1.3",
+    "langchain-mcp-adapters>=0.3.2",
+    "langgraph>=1.2.11",
+    "langgraph-checkpoint-postgres>=3.1.2",
+    "mcp>=1.29.1",
+    "nest-asyncio>=1.6.0",
+    "psycopg-pool>=3.3.1",
+    "psycopg[binary]>=3.3.4",
+    "pycountry>=26.2.16",
+    "python-dotenv>=1.2.3",
+    "redis>=5.2.1",
+    "requests>=2.34.2",
+    "tavily>=1.1.0",
+    "uvicorn>=0.52.4",
+]

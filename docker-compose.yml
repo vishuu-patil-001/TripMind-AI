@@ -1,0 +1,107 @@
+﻿name: tripmind-ai
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: tripmind-ai:latest
+    restart: unless-stopped
+    ports:
+      # Host port is configurable so it does not collide with other projects
+      # already bound to 8000. The container always listens on 8000 inside
+      # the network, which is what the healthcheck targets.
+      #   APP_PORT=8001 docker compose up -d
+      - "${APP_PORT:-8000}:8000"
+
+    # API keys and DATABASE_URL come from .env. Nothing secret is baked
+    # into the image - see .dockerignore.
+    env_file:
+      - .env
+
+    environment:
+      # Overrides the .env value: inside the compose network Redis is
+      # reachable by service name, not on localhost.
+      REDIS_URL: redis://redis:6379/0
+      CACHE_ENABLED: "true"
+      HOST: 0.0.0.0
+      PORT: "8000"
+
+    depends_on:
+      redis:
+        condition: service_healthy
+
+    volumes:
+      # Download cache for uv. The aviationstack MCP server itself is already
+      # baked into the image at UV_TOOL_DIR (/home/app/.local/share/uv/tools),
+      # which this mount does not shadow - so `uvx aviationstack-mcp` works
+      # even on a cold volume. This just avoids re-downloading on the fallback
+      # path where the build-time install did not succeed.
+      - uv-cache:/home/app/.cache/uv
+
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "--silent", "http://127.0.0.1:8000/health"]
+      interval: 30s
+      timeout: 5s
+      start_period: 20s
+      retries: 3
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    ports:
+      # Exposed so you can run the app outside Docker against this Redis.
+      # Drop this line in production.
+      - "${REDIS_PORT:-6379}:6379"
+
+    # Redis is a pure cache here - LangGraph checkpoints live in PostgreSQL -
+    # so evicting under memory pressure is safe. appendonly keeps a warm cache
+    # across restarts.
+    command: >
+      redis-server
+      --appendonly yes
+      --maxmemory 256mb
+      --maxmemory-policy allkeys-lru
+
+    volumes:
+      - redis-data:/data
+
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      start_period: 5s
+      retries: 5
+
+  # Optional local PostgreSQL for the LangGraph checkpointer, for working
+  # offline instead of against Render. Not started by default.
+  #
+  #   docker compose --profile local-db up -d
+  #
+  # Then point DATABASE_URL at it:
+  #   DATABASE_URL=postgresql://tripmind:tripmind@postgres:5432/tripmind?sslmode=disable
+  postgres:
+    profiles: ["local-db"]
+    image: postgres:16-alpine
+    restart: unless-stopped
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    environment:
+      POSTGRES_USER: tripmind
+      POSTGRES_PASSWORD: tripmind
+      POSTGRES_DB: tripmind
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tripmind -d tripmind"]
+      interval: 10s
+      timeout: 3s
+      start_period: 10s
+      retries: 5
+
+volumes:
+  redis-data:
+  postgres-data:
+  uv-cache:
+
+

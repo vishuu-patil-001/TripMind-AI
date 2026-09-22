@@ -1,0 +1,52 @@
+# Virtualenv - rebuilt inside the image, and 130MB we never want in build context
+.venv/
+venv/
+env/
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Secrets - injected at runtime via env_file / -e, never baked into a layer
+.env
+.env.*
+!.env.example
+
+# Version control
+.git/
+.gitignore
+.gitattributes
+
+# Tooling caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Editors / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Claude / agent scratch
+.claude/
+
+# Docker's own files
+Dockerfile
+docker-compose*.yml
+.dockerignore
+
+# Docs
+LICENSE
+README.md
