@@ -1,149 +1,244 @@
-﻿# TripMind AI
-
-> A multi-agent AI travel planner that researches flights, hotels, weather, and destinations, then turns the results into a personalized day-by-day itinerary.
+﻿# ✈️ TripMind AI — AI-Powered Travel Planner
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Python-3.11+-3776AB.svg" alt="Python 3.11+">
-  <img src="https://img.shields.io/badge/FastAPI-0.141+-009688.svg" alt="FastAPI">
-  <img src="https://img.shields.io/badge/LangGraph-1.x-1C3C3C.svg" alt="LangGraph">
-  <img src="https://img.shields.io/badge/PostgreSQL-required-336791.svg" alt="PostgreSQL">
-  <img src="https://img.shields.io/badge/License-GPL--3.0-blue.svg" alt="License">
+  <strong>Plan smarter. Research less. Travel better.</strong>
+</p>
+
+<p align="center">
+  An AI-powered travel planning application that combines multi-agent orchestration, external travel data, and natural-language interaction to generate personalized trip plans.
+</p>
+
+<p align="center">
+  <a href="YOUR_DEPLOYED_DEMO_URL">🚀 Live Demo</a>
+  &nbsp;•&nbsp;
+  <a href="https://github.com/vishuu-patil-001/TripMind-AI">💻 GitHub Repository</a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/FastAPI-0.141+-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI">
+  <img src="https://img.shields.io/badge/LangGraph-Multi--Agent-1C3C3C?style=for-the-badge" alt="LangGraph">
+  <img src="https://img.shields.io/badge/MCP-Integration-6B46C1?style=for-the-badge" alt="MCP">
+  <img src="https://img.shields.io/badge/PostgreSQL-16-336791?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL">
+  <img src="https://img.shields.io/badge/Redis-7-DC382D?style=for-the-badge&logo=redis&logoColor=white" alt="Redis">
+  <img src="https://img.shields.io/badge/Docker-Compose-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker">
 </p>
 
 ---
 
-## Overview
+## 📌 Overview
 
-Planning a trip often means switching between multiple services for flights, hotels, weather, destination research, and itinerary planning.
+**TripMind AI** is a full-stack AI travel planning application designed to simplify the process of researching and organizing a trip.
 
-**TripMind AI** brings these tasks together into a single conversational travel-planning experience.
+Instead of manually searching across multiple websites for destinations, flights, hotels, weather, and itinerary ideas, users can describe their travel requirements in natural language.
 
-You describe the trip you want in natural language, for example:
+TripMind AI then processes the request through a **LangGraph-powered multi-agent workflow**, where specialized agents handle different parts of the planning process before combining their results into a structured travel plan.
 
-> Plan a 10 day Europe trip from India in April with a mid-range budget.
-
-The application uses a multi-agent workflow to research different parts of the trip and combine the results into a structured travel plan.
-
-### What it can help with
-
-| Area | Description |
-|---|---|
-| Flights | Airport and airline information for the requested route |
-| Hotels | Accommodation research for the destination |
-| Weather | Current conditions and forecast information |
-| Destination | Destination-specific research and recommendations |
-| Itinerary | A structured day-by-day travel plan |
-| Budget | Estimated trip costs based on the generated plan |
-| Conversations | Saved trips and follow-up questions |
-
----
-
-## How It Works
-
-TripMind AI is built around a multi-agent workflow.
-
-A typical request moves through several specialized components:
+### Example
 
 ```text
-User Request
-     |
-     v
-TripMind AI Application
-     |
-     v
-+-------------------+
-| LangGraph Workflow|
-+-------------------+
-     |
-     +----> Destination Research
-     |
-     +----> Flight Research
-     |
-     +----> Hotel Research
-     |
-     +----> Weather Research
-     |
-     +----> Itinerary Generation
-     |
-     v
-Final Travel Plan
-     |
-     +----> Plan
-     +----> Itinerary
-     +----> Flights
-     +----> Hotels
-     +----> Weather
+Plan a 7 day Japan trip from Dhaka in April with a mid-range budget,
+focused on food and temples.
 ```
 
-The project uses LangGraph to coordinate the workflow and external services to retrieve travel-related information.
+The application can coordinate:
 
----
-
-## Key Features
-
-- Natural-language trip planning
-- Multi-agent research workflow
-- Flight and airport research
-- Hotel research
-- Weather and forecast information
 - Destination research
-- Day-by-day itinerary generation
-- Budget estimation
-- Saved trip sessions
-- Follow-up questions on existing trips
-- Markdown export
-- Print-friendly results
-- Light and dark mode
-- PostgreSQL-backed persistence
-- Optional Redis caching
-- API-key based integration with external services
+- Flight research
+- Hotel research
+- Weather information
+- Itinerary generation
+- Budget-aware planning
+- Final travel-plan generation
 
 ---
 
-## Technology Stack
+## ✨ Features
 
-### Backend
+### 🤖 Multi-Agent AI Planning
 
-- Python 3.11+
-- FastAPI
-- Uvicorn
-- LangGraph
-- LangChain
-- LangChain-Groq
-- MCP
-- PostgreSQL
-- Psycopg
+TripMind AI separates travel planning into specialized agents rather than relying on one large prompt.
+
+| Agent | Responsibility |
+|---|---|
+| 🗺️ Destination Agent | Destination research and recommendations |
+| ✈️ Flight Agent | Flight and airport research |
+| 🏨 Hotel Agent | Accommodation research |
+| 🌤️ Weather Agent | Weather information |
+| 📅 Itinerary Agent | Day-by-day itinerary generation |
+| 🧠 Final Agent | Combines results into the final travel plan |
+
+The agents are orchestrated using **LangGraph**.
+
+---
+
+### 💬 Natural-Language Interaction
+
+Users can describe a trip conversationally instead of filling out a complex form.
+
+For example:
+
+```text
+I want a relaxed 5-day trip to Rome and Florence
+for two people with a mid-range budget.
+I am interested in food, history, and scenic places.
+```
+
+The application converts the request into a structured travel-planning workflow.
+
+---
+
+### 🔎 External Travel Research
+
+TripMind AI integrates external services to retrieve travel-related information such as:
+
+- Destination information
+- Flight and aviation data
+- Hotel information
+- Weather information
+- Web research
+
+External integrations are organized through the project's MCP-related components.
+
+---
+
+### 🧩 Model Context Protocol (MCP)
+
+The project includes MCP-based integrations for connecting the AI workflow with external tools and data sources.
+
+MCP-related functionality is organized under:
+
+```text
+src/mcp_servers/
+```
+
+The repository contains components for:
+
+- Remote MCP integrations
+- Local MCP integrations
+- Weather information
+- AviationStack integration
+- MCP diagnostics
+
+---
+
+### ⚡ Redis Caching
+
+Redis can be used as a caching layer for frequently requested travel information.
+
+Caching helps:
+
+- Reduce repeated external API requests
+- Reduce unnecessary network calls
+- Improve response time for repeated requests
+- Reduce dependency on external services for cached information
+
+Redis is optional and can be disabled when required.
+
+---
+
+### 💾 PostgreSQL Persistence
+
+PostgreSQL is used for **LangGraph workflow checkpoint persistence**.
+
+This allows workflow state to be persisted rather than relying only on in-memory execution.
+
+---
+
+### 🐳 Dockerized Development
+
+The project includes Docker and Docker Compose configuration for running the application and supporting services locally.
+
+The development environment can include:
+
+- FastAPI application
 - Redis
-
-### External Services
-
-- Groq — LLM inference
-- Tavily — web research
-- AviationStack — aviation information
-- OpenWeather — weather information
-
-### Frontend
-
-The frontend is implemented with:
-
-- HTML
-- CSS
-- JavaScript
-- Jinja2 templates
-- Markdown rendering
-
-### Development & Deployment
-
-- `uv` for Python dependency management
-- Docker
-- Docker Compose
-- Vercel configuration included
-- PostgreSQL for persistent application state
-- Optional Redis caching
+- PostgreSQL
+- Persistent Docker volumes
+- Health checks
+- Non-root application execution
 
 ---
 
-## Project Structure
+## 🏗️ Architecture
+
+```text
+                         ┌─────────────────────┐
+                         │      Web User       │
+                         └──────────┬──────────┘
+                                    │
+                                    ▼
+                         ┌─────────────────────┐
+                         │      FastAPI        │
+                         │    Application      │
+                         └──────────┬──────────┘
+                                    │
+                                    ▼
+                         ┌─────────────────────┐
+                         │      LangGraph      │
+                         │   Agent Workflow    │
+                         └──────────┬──────────┘
+                                    │
+             ┌──────────────────────┼──────────────────────┐
+             │                      │                      │
+             ▼                      ▼                      ▼
+      ┌─────────────┐        ┌─────────────┐        ┌─────────────┐
+      │ Destination │        │    Flight   │        │    Hotel    │
+      │    Agent    │        │    Agent    │        │    Agent    │
+      └──────┬──────┘        └──────┬──────┘        └──────┬──────┘
+             │                      │                      │
+             └──────────────────────┼──────────────────────┘
+                                    │
+                                    ▼
+                         ┌─────────────────────┐
+                         │   Weather Agent     │
+                         └──────────┬──────────┘
+                                    │
+                                    ▼
+                         ┌─────────────────────┐
+                         │  Itinerary Agent    │
+                         └──────────┬──────────┘
+                                    │
+                                    ▼
+                         ┌─────────────────────┐
+                         │     Final Agent     │
+                         └──────────┬──────────┘
+                                    │
+                                    ▼
+                         ┌─────────────────────┐
+                         │  Structured Travel  │
+                         │        Plan         │
+                         └─────────────────────┘
+
+              ┌────────────────┐       ┌──────────────────┐
+              │     Redis      │       │   PostgreSQL     │
+              │     Cache      │       │   Checkpointer   │
+              └────────────────┘       └──────────────────┘
+```
+
+---
+
+## 🛠️ Technology Stack
+
+| Technology | Purpose |
+|---|---|
+| **Python 3.11+** | Application runtime |
+| **FastAPI** | Backend API |
+| **LangGraph** | Multi-agent workflow orchestration |
+| **LangChain** | AI application framework |
+| **Groq** | LLM inference |
+| **MCP** | External tool and data integration |
+| **PostgreSQL** | Workflow checkpoint persistence |
+| **Redis** | Caching |
+| **uv** | Python dependency management |
+| **Docker** | Containerization |
+| **Docker Compose** | Local multi-service environment |
+| **HTML / CSS / JavaScript** | Frontend |
+| **Jinja2** | Frontend templating |
+
+---
+
+## 📂 Project Structure
 
 ```text
 TripMind-AI/
@@ -161,15 +256,16 @@ TripMind-AI/
 ├── README.md
 │
 ├── frontend/
-│   ├── static/
-│   │   ├── css/
-│   │   │   └── styles.css
-│   │   └── js/
-│   │       ├── app.js
-│   │       └── markdown.js
+│   ├── templates/
+│   │   └── index.html
 │   │
-│   └── templates/
-│       └── index.html
+│   └── static/
+│       ├── css/
+│       │   └── styles.css
+│       │
+│       └── js/
+│           ├── app.js
+│           └── markdown.js
 │
 ├── src/
 │   ├── agents/
@@ -215,360 +311,552 @@ TripMind-AI/
 
 ---
 
-## Getting Started
+# 🚀 Running Locally
 
-### Prerequisites
+## Prerequisites
 
-Before running TripMind AI locally, install:
+For the Docker-based setup:
 
-- Python 3.11 or newer
-- `uv`
-- PostgreSQL
 - Git
+- Docker Desktop
+
+For development without Docker:
+
+- Python 3.11+
+- uv
 
 You will also need API credentials for the external services used by the application.
 
 ---
 
-### 1. Clone the repository
+## 1. Clone the Repository
 
-```bash
+```powershell
 git clone https://github.com/vishuu-patil-001/TripMind-AI.git
 cd TripMind-AI
 ```
 
 ---
 
-### 2. Install dependencies
+## 2. Configure Environment Variables
 
-This project uses `uv` for dependency management.
+The repository includes:
 
-```bash
-uv sync
+```text
+.env.example
 ```
 
----
+Create your local `.env` file.
 
-### 3. Configure environment variables
+### Windows PowerShell
 
-Create a `.env` file in the project root.
-
-You can use `.env.example` as the starting point:
-
-```bash
-copy .env.example .env
+```powershell
+Copy-Item .env.example .env
 ```
 
-Then edit `.env` and provide your actual credentials.
+### macOS / Linux
 
-Example:
+```bash
+cp .env.example .env
+```
 
-```dotenv
-GROQ_API_KEY=your_groq_api_key
+Open `.env` and configure your API credentials.
+
+The primary configuration includes:
+
+```env
+GROQ_API_KEY=
 GROQ_MODEL=openai/gpt-oss-20b
 
-TAVILY_API_KEY=your_tavily_api_key
-AVIATIONSTACK_API_KEY=your_aviationstack_api_key
-OPENWEATHER_API_KEY=your_openweather_api_key
-
-DATABASE_URL=postgresql://username:password@host:5432/database
-
-REDIS_URL=redis://localhost:6379/0
-CACHE_ENABLED=true
-
-HOST=127.0.0.1
-PORT=8000
-RELOAD=true
+TAVILY_API_KEY=
+AVIATIONSTACK_API_KEY=
+OPENWEATHER_API_KEY=
 ```
 
-### Environment variables
+If PostgreSQL persistence is enabled:
 
-| Variable | Required | Purpose |
-|---|:---:|---|
-| `GROQ_API_KEY` | Yes | LLM access |
-| `GROQ_MODEL` | No | Model used by the application |
-| `TAVILY_API_KEY` | Yes | Web/travel research |
-| `AVIATIONSTACK_API_KEY` | Yes | Aviation and airport information |
-| `OPENWEATHER_API_KEY` | Yes | Weather information |
-| `DATABASE_URL` | Yes | PostgreSQL persistence |
-| `REDIS_URL` | No | Redis cache connection |
-| `CACHE_ENABLED` | No | Enables/disables caching |
-| `HOST` | No | Application host |
-| `PORT` | No | Application port |
-| `RELOAD` | No | Development reload option |
-
-> **Security:** Never commit your `.env` file or real API keys to GitHub.
-
----
-
-## 4. Start the application
-
-Run:
-
-```bash
-uv run python app.py
+```env
+DATABASE_URL=
 ```
 
-The application should start on:
+If Redis caching is enabled:
 
-```text
-http://127.0.0.1:8000
-```
-
-Open that address in your browser.
-
----
-
-## Using TripMind AI
-
-### Natural-language planning
-
-Enter a request such as:
-
-```text
-Plan a 7 day trip to Japan from India in October for two people with a mid-range budget.
-```
-
-Or:
-
-```text
-Plan a relaxed 5 day trip to Rome and Florence for two people.
-```
-
-The application processes the request through its research and planning workflow.
-
----
-
-### Trip Builder
-
-The application also provides a structured trip builder.
-
-You can provide information such as:
-
-- Origin
-- Destination
-- Dates
-- Duration
-- Number of travelers
-- Budget
-- Travel interests
-
-The application then helps construct the trip request.
-
----
-
-### Generated Results
-
-Trip results are organized into sections such as:
-
-- **Plan**
-- **Itinerary**
-- **Flights**
-- **Hotels**
-- **Weather**
-
-You can review the different parts of the generated travel plan without having to manually research each category separately.
-
----
-
-## Data Persistence
-
-TripMind AI uses PostgreSQL to persist application state.
-
-The PostgreSQL connection is configured through:
-
-```dotenv
-DATABASE_URL=...
-```
-
-The project also supports Redis as an optional caching layer.
-
-```dotenv
-REDIS_URL=redis://localhost:6379/0
+```env
+REDIS_URL=
 CACHE_ENABLED=true
 ```
 
-When Redis is not configured, the application can operate without the cache.
+> **Important:** Never commit your actual `.env` file or API keys to GitHub.
 
 ---
 
-## Docker
+## 3. Start the Application
 
-A Docker configuration is included in the repository.
+Build and start the default Docker services:
 
-To start the application using Docker Compose:
-
-```bash
-docker compose up --build
+```powershell
+docker compose up --build -d
 ```
 
-The included Compose configuration can provide the application, PostgreSQL, and Redis services for local development.
+Check the running services:
 
-Before using Docker, make sure the required environment variables are configured in your `.env` file.
-
----
-
-## Troubleshooting
-
-### The application does not start
-
-Check that Python and `uv` are installed:
-
-```bash
-python --version
-uv --version
+```powershell
+docker compose ps
 ```
 
-Then reinstall/synchronize dependencies:
+The default setup starts the TripMind AI application and Redis.
 
-```bash
-uv sync
+---
+
+## 4. Start Local PostgreSQL
+
+If PostgreSQL persistence is required, start the optional database service:
+
+```powershell
+docker compose --profile local-db up -d postgres
+```
+
+Check:
+
+```powershell
+docker compose ps
+```
+
+The included local PostgreSQL configuration uses:
+
+```env
+DATABASE_URL=postgresql://tripmind:tripmind@postgres:5432/tripmind?sslmode=disable
+```
+
+These credentials are intended **only for the local development container**.
+
+---
+
+## 5. Open the Application
+
+Once the containers are running:
+
+```text
+http://localhost:8000
 ```
 
 ---
 
-### `GROQ_API_KEY` is missing
+## 🩺 Health Check
 
-Make sure the project root contains a `.env` file with:
+TripMind AI provides a health endpoint:
 
-```dotenv
-GROQ_API_KEY=your_actual_key
+```http
+GET /health
 ```
 
-Do not put the key into source code.
+On Windows PowerShell:
 
----
-
-### `DATABASE_URL` is missing
-
-The application requires PostgreSQL persistence.
-
-Make sure `.env` contains a valid PostgreSQL connection string:
-
-```dotenv
-DATABASE_URL=postgresql://username:password@host:5432/database
+```powershell
+Invoke-WebRequest "http://localhost:8000/health" -UseBasicParsing
 ```
 
-Do not commit the real connection string to Git.
+A healthy application should return an HTTP success response.
+
+The exact response can vary depending on the configured environment and external services.
 
 ---
 
-### The selected model is unavailable
+# 🔌 API Endpoints
 
-LLM providers may change the models available to an API key over time.
+## Health
 
-If the configured model is unavailable, update:
-
-```dotenv
-GROQ_MODEL=your_available_model
+```http
+GET /health
 ```
 
-using a model currently available to your Groq account.
+Checks application health and dependency readiness.
 
 ---
 
-### The application takes time to generate a plan
+## Application Configuration
 
-Trip planning involves multiple research and AI operations. Depending on the configured services and network conditions, generation can take some time.
+```http
+GET /api/config
+```
+
+Returns application/frontend configuration used by the client.
 
 ---
 
-## Security
+## Travel Planning
 
-This repository is designed to keep credentials outside the source code.
+```http
+POST /api/travel
+```
 
-The following types of values should remain private:
+Submits a travel request and executes the multi-agent travel-planning workflow.
+
+---
+
+# ⚙️ Environment Variables
+
+| Variable | Purpose |
+|---|---|
+| `GROQ_API_KEY` | Groq API authentication |
+| `GROQ_MODEL` | LLM model used by the application |
+| `TAVILY_API_KEY` | Web/travel research |
+| `AVIATIONSTACK_API_KEY` | Aviation and flight-related information |
+| `OPENWEATHER_API_KEY` | Weather information |
+| `DATABASE_URL` | PostgreSQL connection |
+| `REDIS_URL` | Redis connection |
+| `CACHE_ENABLED` | Enables/disables Redis caching |
+| `HOST` | Application host |
+| `PORT` | Application port |
+| `RELOAD` | Development reload configuration |
+| `LANGFUSE_SECRET_KEY` | Optional Langfuse secret |
+| `LANGFUSE_PUBLIC_KEY` | Optional Langfuse public key |
+| `LANGFUSE_BASE_URL` | Optional Langfuse endpoint |
+
+See `.env.example` for the complete configuration options.
+
+---
+
+# 🧠 How the AI Workflow Works
+
+A typical request follows this general flow:
+
+```text
+User Travel Request
+        │
+        ▼
+Request Validation
+        │
+        ▼
+LangGraph Workflow
+        │
+        ├──► Destination Research
+        │
+        ├──► Flight Research
+        │
+        ├──► Hotel Research
+        │
+        ├──► Weather Research
+        │
+        ▼
+Itinerary Generation
+        │
+        ▼
+Final Agent
+        │
+        ▼
+Structured Travel Plan
+```
+
+The architecture allows different parts of the travel-planning problem to be handled independently before the final response is assembled.
+
+---
+
+# 📊 Caching
+
+Redis is used as an optional caching layer.
+
+Example configuration:
+
+```env
+CACHE_ENABLED=true
+```
+
+When running through Docker Compose, the application can communicate with Redis through:
+
+```text
+redis://redis:6379/0
+```
+
+Example cache TTL settings include:
+
+```env
+CACHE_TTL_AIRPORTS=604800
+CACHE_TTL_AIRLINES=604800
+CACHE_TTL_HOTELS=21600
+CACHE_TTL_FORECAST=3600
+CACHE_TTL_WEATHER=600
+CACHE_TTL_DESTINATION=86400
+```
+
+These values are optional and can be adjusted according to the application's requirements.
+
+---
+
+# 🐳 Useful Docker Commands
+
+### Check services
+
+```powershell
+docker compose ps
+```
+
+### View application logs
+
+```powershell
+docker compose logs --tail=100 app
+```
+
+### Follow application logs
+
+```powershell
+docker compose logs -f app
+```
+
+### View Redis logs
+
+```powershell
+docker compose logs --tail=100 redis
+```
+
+### View PostgreSQL logs
+
+```powershell
+docker compose logs --tail=100 postgres
+```
+
+### Restart the application
+
+```powershell
+docker compose restart app
+```
+
+### Stop services
+
+```powershell
+docker compose stop
+```
+
+### Stop PostgreSQL
+
+```powershell
+docker compose --profile local-db stop postgres
+```
+
+### Stop and remove containers
+
+```powershell
+docker compose down
+```
+
+---
+
+# 🔐 Security
+
+TripMind AI uses environment variables for sensitive configuration.
+
+The following should **never** be committed to GitHub:
 
 - API keys
 - Database passwords
-- PostgreSQL connection strings containing credentials
+- Private database connection strings
 - Redis credentials
 - Langfuse secret keys
 - Other service credentials
 
-Use `.env` for local secrets and environment-variable configuration for deployment.
+The repository should contain:
 
-Before pushing changes, verify that no credentials have been added accidentally:
-
-```bash
-git status
+```text
+.env.example
 ```
 
-You can also search the tracked files for common credential names:
+but not:
 
-```bash
-git grep -n -I -E "GROQ_API_KEY|TAVILY_API_KEY|AVIATIONSTACK_API_KEY|OPENWEATHER_API_KEY|DATABASE_URL|REDIS_URL"
+```text
+.env
 ```
 
-Seeing variable names or placeholders in documentation is expected. Real credential values should not appear in tracked source files.
+Verify that `.env` is ignored before pushing:
+
+```powershell
+git check-ignore -v .env
+```
+
+You can also verify that `.env` is not tracked:
+
+```powershell
+git ls-files ".env"
+```
+
+An empty result means Git is not tracking `.env`.
 
 ---
 
-## Development
+# ⚠️ External Service Limitations
 
-Create a feature branch before making larger changes:
+TripMind AI depends on external APIs and services.
 
-```bash
-git checkout -b feature/your-feature-name
+Individual integrations may be affected by:
+
+- Invalid API credentials
+- API rate limits
+- Subscription restrictions
+- Unsupported API features
+- Provider outages
+- Network failures
+- Changes to external APIs
+
+Therefore, an external integration may occasionally return incomplete information even when the main application itself is running correctly.
+
+---
+
+# 🛠️ Troubleshooting
+
+## Application is not running
+
+Check:
+
+```powershell
+docker compose ps
 ```
 
-After making changes, test the application locally:
+Then inspect:
 
-```bash
-uv sync
-uv run python app.py
-```
-
-Keep commits focused and descriptive.
-
-Example:
-
-```bash
-git commit -m "Improve trip planning workflow"
+```powershell
+docker compose logs --tail=100 app
 ```
 
 ---
 
-## Contributing
+## Health endpoint fails
 
-Contributions and improvements are welcome.
+Run:
 
-A typical contribution workflow is:
+```powershell
+Invoke-WebRequest "http://localhost:8000/health" -UseBasicParsing
+```
 
-1. Fork the repository.
-2. Clone your fork.
-3. Create a feature branch.
-4. Make your changes.
-5. Test the application.
-6. Commit the changes.
-7. Push the branch.
-8. Open a pull request.
+Then inspect:
 
-Please avoid committing secrets, generated credentials, or local environment files.
+```powershell
+docker compose logs --tail=100 app
+```
 
 ---
 
-## License
+## PostgreSQL connection error
+
+Start PostgreSQL:
+
+```powershell
+docker compose --profile local-db up -d postgres
+```
+
+Check:
+
+```powershell
+docker compose ps
+```
+
+If `.env` was changed, recreate the application container:
+
+```powershell
+docker compose up -d --force-recreate app
+```
+
+---
+
+## Redis connection problem
+
+Check:
+
+```powershell
+docker compose ps
+```
+
+Then:
+
+```powershell
+docker compose logs --tail=100 redis
+```
+
+When using Docker Compose, the expected internal Redis address is:
+
+```text
+redis://redis:6379/0
+```
+
+---
+
+## External API errors
+
+Check the application logs:
+
+```powershell
+docker compose logs --tail=100 app
+```
+
+Verify:
+
+- API keys
+- Provider account limits
+- Subscription availability
+- Requested API functionality
+- Network connectivity
+
+---
+
+# 📌 Project Status
+
+TripMind AI currently demonstrates:
+
+- Full-stack AI travel planning
+- FastAPI backend
+- Web frontend
+- LangGraph multi-agent orchestration
+- Groq LLM integration
+- MCP-based external integrations
+- Flight research
+- Hotel research
+- Weather information
+- Destination research
+- Itinerary generation
+- Redis caching
+- PostgreSQL checkpoint persistence
+- Docker containerization
+- Docker Compose local development
+- Health monitoring
+- Environment-based configuration
+
+The project demonstrates how multiple AI agents, external tools, caching, persistence, and a web interface can be combined into a practical AI application.
+
+---
+
+# 🌐 Demo
+
+### Live Demo
+
+**[🚀 Try TripMind AI](YOUR_DEPLOYED_DEMO_URL)**
+
+> The live demo link will be added here once the application is deployed.
+
+### Source Code
+
+**[💻 GitHub Repository](https://github.com/vishuu-patil-001/TripMind-AI)**
+
+---
+
+# 📄 License
 
 This project is licensed under the **GNU General Public License v3.0**.
 
-See [LICENSE](LICENSE) for the complete license text.
+See [`LICENSE`](./LICENSE) for the complete license text.
 
 ---
 
-## Acknowledgements
+## 👨‍💻 Project
 
-TripMind AI uses several open-source libraries and external services, including:
+**TripMind AI**
 
-- FastAPI
-- LangChain
-- LangGraph
-- MCP
-- PostgreSQL
-- Redis
-- Groq
-- Tavily
-- AviationStack
-- OpenWeather
+Built as an AI-powered travel-planning project demonstrating:
 
-The respective projects and services retain their own licenses and terms of use.
+- Multi-agent AI systems
+- LangGraph workflow orchestration
+- MCP integrations
+- API integration
+- Persistent workflow state
+- Redis caching
+- Dockerized application architecture
+- Full-stack web development
+
+---
