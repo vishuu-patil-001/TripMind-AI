@@ -1,4 +1,4 @@
-[project]
+﻿[project]
 name = "multi-agent-travel-agent-planner"
 version = "0.1.0"
 description = "A multi-agent AI travel planner that researches flights, hotels, weather, and creates personalized itineraries."
@@ -26,4 +26,5 @@ dependencies = [
 ]
 
 [tool.vercel]
-entrypoint = "app.py"
+entrypoint = "app:app"
+
