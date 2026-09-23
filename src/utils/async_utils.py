@@ -1,8 +1,5 @@
 """
 Helpers for calling async MCP tools from the synchronous graph nodes.
-
-app.py applies nest_asyncio, which is what makes asyncio.run() safe to
-call from inside FastAPI's already-running event loop.
 """
 
 import asyncio
@@ -14,7 +11,21 @@ T = TypeVar("T")
 def run_async(coroutine: Awaitable[T]) -> T:
     """Run a coroutine to completion from synchronous code."""
 
-    return asyncio.run(coroutine)
+    try:
+        asyncio.get_running_loop()
+    except RuntimeError:
+        return asyncio.run(coroutine)
+
+    # A synchronous graph node is being called while an event loop
+    # is already running. Execute the coroutine in a separate thread
+    # with its own event loop.
+    import concurrent.futures
+
+    def _run() -> T:
+        return asyncio.run(coroutine)
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
+        return executor.submit(_run).result()
 
 
 def bump_llm_calls(state: dict, count: int = 1) -> int:

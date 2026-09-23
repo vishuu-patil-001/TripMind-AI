@@ -28,9 +28,6 @@ from src.config.session import (
 from src.config.settings import COOKIE_SAMESITE, COOKIE_SECURE, CORS_ORIGINS
 from src.graph.runner import run_travel_agent
 
-# This is to allow nested event loops for async calls in FastAPI
-import nest_asyncio
-nest_asyncio.apply()
 
 
 BASE_DIR = Path(__file__).resolve().parent
