@@ -5,11 +5,11 @@
 </p>
 
 <p align="center">
-  An AI-powered travel planning application that combines multi-agent orchestration, external travel data, and natural-language interaction to generate personalized trip plans.
+  An AI-powered travel planning application that uses multi-agent orchestration, external travel integrations, and natural-language interaction to generate structured, personalized travel plans.
 </p>
 
 <p align="center">
-  <a href="YOUR_DEPLOYED_DEMO_URL">🚀 Live Demo</a>
+  <a href="https://trip-mind-ai-tau.vercel.app">🚀 Live Demo</a>
   &nbsp;•&nbsp;
   <a href="https://github.com/vishuu-patil-001/TripMind-AI">💻 GitHub Repository</a>
 </p>
@@ -26,38 +26,67 @@
 
 ---
 
+## 📸 Screenshots
+
+### 🏠 Application Interface
+
+<p align="center">
+  <img src="docs/screenshots/01-home.png" alt="TripMind AI home interface" width="900">
+</p>
+
+### 📝 Natural-Language Trip Request
+
+<p align="center">
+  <img src="docs/screenshots/02-trip-request.png" alt="TripMind AI travel request" width="900">
+</p>
+
+### 🤖 AI-Generated Travel Plan
+
+<p align="center">
+  <img src="docs/screenshots/03-generated-plan.png" alt="TripMind AI generated travel plan" width="900">
+</p>
+
+### 📱 Responsive Interface
+
+<p align="center">
+  <img src="docs/screenshots/04-responsive-view.png" alt="TripMind AI responsive interface" width="700">
+</p>
+
+---
+
 ## 📌 Overview
 
 **TripMind AI** is a full-stack AI travel planning application designed to simplify the process of researching and organizing a trip.
 
-Instead of manually searching across multiple websites for destinations, flights, hotels, weather, and itinerary ideas, users can describe their travel requirements in natural language.
+Instead of manually searching across multiple websites for destinations, flights, hotels, weather, activities, and itinerary ideas, users can describe their travel requirements using natural language.
 
-TripMind AI then processes the request through a **LangGraph-powered multi-agent workflow**, where specialized agents handle different parts of the planning process before combining their results into a structured travel plan.
+TripMind AI processes the request through a **LangGraph-powered multi-agent workflow**, where specialized agents handle different parts of the planning process before the results are combined into a structured travel plan.
 
-### Example
+### Example Request
 
 ```text
-Plan a 7 day Japan trip from Dhaka in April with a mid-range budget,
-focused on food and temples.
+Plan a 7 day trip to Tokyo from Dhaka in April with a mid-range budget
+for 1 traveller. Include flights, hotels, weather, activities,
+and a detailed day-by-day itinerary.
 ```
 
 The application can coordinate:
 
-- Destination research
-- Flight research
-- Hotel research
-- Weather information
-- Itinerary generation
-- Budget-aware planning
-- Final travel-plan generation
+- 🗺️ Destination research
+- ✈️ Flight-related research
+- 🏨 Hotel research
+- 🌤️ Weather information
+- 📅 Itinerary generation
+- 💰 Budget-aware planning
+- 🧠 Final travel-plan generation
 
 ---
 
-## ✨ Features
+# ✨ Features
 
-### 🤖 Multi-Agent AI Planning
+## 🤖 Multi-Agent AI Planning
 
-TripMind AI separates travel planning into specialized agents rather than relying on one large prompt.
+TripMind AI separates travel planning into specialized agents instead of relying on a single large prompt.
 
 | Agent | Responsibility |
 |---|---|
@@ -66,17 +95,17 @@ TripMind AI separates travel planning into specialized agents rather than relyin
 | 🏨 Hotel Agent | Accommodation research |
 | 🌤️ Weather Agent | Weather information |
 | 📅 Itinerary Agent | Day-by-day itinerary generation |
-| 🧠 Final Agent | Combines results into the final travel plan |
+| 🧠 Final Agent | Combines research into the final travel plan |
 
-The agents are orchestrated using **LangGraph**.
+These agents are orchestrated through **LangGraph**.
 
 ---
 
-### 💬 Natural-Language Interaction
+## 💬 Natural-Language Interaction
 
-Users can describe a trip conversationally instead of filling out a complex form.
+Users do not need to fill out a complicated travel form.
 
-For example:
+They can describe their requirements naturally:
 
 ```text
 I want a relaxed 5-day trip to Rome and Florence
@@ -88,23 +117,23 @@ The application converts the request into a structured travel-planning workflow.
 
 ---
 
-### 🔎 External Travel Research
+## 🔎 External Travel Research
 
-TripMind AI integrates external services to retrieve travel-related information such as:
+The application includes integrations for travel-related research such as:
 
 - Destination information
-- Flight and aviation data
+- Flight and aviation information
 - Hotel information
 - Weather information
 - Web research
 
-External integrations are organized through the project's MCP-related components.
+The external integrations are organized through the project's MCP-related components.
 
 ---
 
-### 🧩 Model Context Protocol (MCP)
+## 🧩 Model Context Protocol (MCP)
 
-The project includes MCP-based integrations for connecting the AI workflow with external tools and data sources.
+TripMind AI includes MCP-based components for connecting the AI workflow with external tools and data sources.
 
 MCP-related functionality is organized under:
 
@@ -112,7 +141,7 @@ MCP-related functionality is organized under:
 src/mcp_servers/
 ```
 
-The repository contains components for:
+The repository includes components for:
 
 - Remote MCP integrations
 - Local MCP integrations
@@ -122,32 +151,32 @@ The repository contains components for:
 
 ---
 
-### ⚡ Redis Caching
+## ⚡ Redis Caching
 
-Redis can be used as a caching layer for frequently requested travel information.
+Redis can be used as an optional caching layer for frequently requested travel information.
 
-Caching helps:
+Caching can help:
 
 - Reduce repeated external API requests
 - Reduce unnecessary network calls
-- Improve response time for repeated requests
+- Improve response times for repeated requests
 - Reduce dependency on external services for cached information
 
-Redis is optional and can be disabled when required.
+Redis can be enabled or disabled through configuration.
 
 ---
 
-### 💾 PostgreSQL Persistence
+## 💾 PostgreSQL Persistence
 
 PostgreSQL is used for **LangGraph workflow checkpoint persistence**.
 
-This allows workflow state to be persisted rather than relying only on in-memory execution.
+This allows workflow state to be persisted instead of relying entirely on in-memory execution.
 
 ---
 
-### 🐳 Dockerized Development
+## 🐳 Dockerized Development
 
-The project includes Docker and Docker Compose configuration for running the application and supporting services locally.
+The project includes Docker and Docker Compose configuration for local development.
 
 The development environment can include:
 
@@ -160,11 +189,11 @@ The development environment can include:
 
 ---
 
-## 🏗️ Architecture
+# 🏗️ Architecture
 
 ```text
                          ┌─────────────────────┐
-                         │      Web User       │
+                         │       Web User      │
                          └──────────┬──────────┘
                                     │
                                     ▼
@@ -179,15 +208,15 @@ The development environment can include:
                          │   Agent Workflow    │
                          └──────────┬──────────┘
                                     │
-             ┌──────────────────────┼──────────────────────┐
-             │                      │                      │
-             ▼                      ▼                      ▼
-      ┌─────────────┐        ┌─────────────┐        ┌─────────────┐
-      │ Destination │        │    Flight   │        │    Hotel    │
-      │    Agent    │        │    Agent    │        │    Agent    │
-      └──────┬──────┘        └──────┬──────┘        └──────┬──────┘
-             │                      │                      │
-             └──────────────────────┼──────────────────────┘
+              ┌─────────────────────┼─────────────────────┐
+              │                     │                     │
+              ▼                     ▼                     ▼
+       ┌─────────────┐       ┌─────────────┐       ┌─────────────┐
+       │ Destination │       │    Flight   │       │    Hotel    │
+       │    Agent    │       │    Agent    │       │    Agent    │
+       └──────┬──────┘       └──────┬──────┘       └──────┬──────┘
+              │                     │                     │
+              └─────────────────────┼─────────────────────┘
                                     │
                                     ▼
                          ┌─────────────────────┐
@@ -206,19 +235,19 @@ The development environment can include:
                                     │
                                     ▼
                          ┌─────────────────────┐
-                         │  Structured Travel  │
-                         │        Plan         │
+                         │ Structured Travel   │
+                         │       Plan          │
                          └─────────────────────┘
 
-              ┌────────────────┐       ┌──────────────────┐
-              │     Redis      │       │   PostgreSQL     │
-              │     Cache      │       │   Checkpointer   │
-              └────────────────┘       └──────────────────┘
+                  ┌────────────────┐   ┌──────────────────┐
+                  │     Redis      │   │   PostgreSQL     │
+                  │     Cache      │   │   Checkpointer   │
+                  └────────────────┘   └──────────────────┘
 ```
 
 ---
 
-## 🛠️ Technology Stack
+# 🛠️ Technology Stack
 
 | Technology | Purpose |
 |---|---|
@@ -229,16 +258,16 @@ The development environment can include:
 | **Groq** | LLM inference |
 | **MCP** | External tool and data integration |
 | **PostgreSQL** | Workflow checkpoint persistence |
-| **Redis** | Caching |
+| **Redis** | Optional caching layer |
 | **uv** | Python dependency management |
 | **Docker** | Containerization |
-| **Docker Compose** | Local multi-service environment |
+| **Docker Compose** | Local multi-service development |
 | **HTML / CSS / JavaScript** | Frontend |
 | **Jinja2** | Frontend templating |
 
 ---
 
-## 📂 Project Structure
+# 📂 Project Structure
 
 ```text
 TripMind-AI/
@@ -254,6 +283,13 @@ TripMind-AI/
 ├── .dockerignore
 ├── LICENSE
 ├── README.md
+│
+├── docs/
+│   └── screenshots/
+│       ├── 01-home.png
+│       ├── 02-trip-request.png
+│       ├── 03-generated-plan.png
+│       └── 04-responsive-view.png
 │
 ├── frontend/
 │   ├── templates/
@@ -315,17 +351,17 @@ TripMind-AI/
 
 ## Prerequisites
 
-For the Docker-based setup:
+### Docker-based setup
 
 - Git
 - Docker Desktop
 
-For development without Docker:
+### Development without Docker
 
 - Python 3.11+
 - uv
 
-You will also need API credentials for the external services used by the application.
+You will also need credentials for the external services configured by the application.
 
 ---
 
@@ -340,13 +376,11 @@ cd TripMind-AI
 
 ## 2. Configure Environment Variables
 
-The repository includes:
+The repository provides an environment-variable template:
 
 ```text
 .env.example
 ```
-
-Create your local `.env` file.
 
 ### Windows PowerShell
 
@@ -354,15 +388,9 @@ Create your local `.env` file.
 Copy-Item .env.example .env
 ```
 
-### macOS / Linux
+Configure the required values in `.env`.
 
-```bash
-cp .env.example .env
-```
-
-Open `.env` and configure your API credentials.
-
-The primary configuration includes:
+Example:
 
 ```env
 GROQ_API_KEY=
@@ -371,46 +399,36 @@ GROQ_MODEL=openai/gpt-oss-20b
 TAVILY_API_KEY=
 AVIATIONSTACK_API_KEY=
 OPENWEATHER_API_KEY=
-```
 
-If PostgreSQL persistence is enabled:
-
-```env
 DATABASE_URL=
-```
 
-If Redis caching is enabled:
-
-```env
 REDIS_URL=
 CACHE_ENABLED=true
 ```
 
-> **Important:** Never commit your actual `.env` file or API keys to GitHub.
+> **Security:** Never commit your real `.env` file or API credentials to GitHub.
 
 ---
 
 ## 3. Start the Application
 
-Build and start the default Docker services:
+Build and start the Docker services:
 
 ```powershell
 docker compose up --build -d
 ```
 
-Check the running services:
+Check the services:
 
 ```powershell
 docker compose ps
 ```
 
-The default setup starts the TripMind AI application and Redis.
-
 ---
 
 ## 4. Start Local PostgreSQL
 
-If PostgreSQL persistence is required, start the optional database service:
+If PostgreSQL persistence is required:
 
 ```powershell
 docker compose --profile local-db up -d postgres
@@ -422,19 +440,17 @@ Check:
 docker compose ps
 ```
 
-The included local PostgreSQL configuration uses:
+The local Docker PostgreSQL configuration uses:
 
 ```env
 DATABASE_URL=postgresql://tripmind:tripmind@postgres:5432/tripmind?sslmode=disable
 ```
 
-These credentials are intended **only for the local development container**.
+These credentials are intended only for the local development container.
 
 ---
 
 ## 5. Open the Application
-
-Once the containers are running:
 
 ```text
 http://localhost:8000
@@ -442,7 +458,7 @@ http://localhost:8000
 
 ---
 
-## 🩺 Health Check
+# 🩺 Health Check
 
 TripMind AI provides a health endpoint:
 
@@ -450,15 +466,13 @@ TripMind AI provides a health endpoint:
 GET /health
 ```
 
-On Windows PowerShell:
+Windows PowerShell:
 
 ```powershell
 Invoke-WebRequest "http://localhost:8000/health" -UseBasicParsing
 ```
 
-A healthy application should return an HTTP success response.
-
-The exact response can vary depending on the configured environment and external services.
+A healthy deployment should return a successful HTTP response.
 
 ---
 
@@ -480,7 +494,7 @@ Checks application health and dependency readiness.
 GET /api/config
 ```
 
-Returns application/frontend configuration used by the client.
+Returns application/frontend configuration and reports the configuration state used by the application.
 
 ---
 
@@ -490,7 +504,7 @@ Returns application/frontend configuration used by the client.
 POST /api/travel
 ```
 
-Submits a travel request and executes the multi-agent travel-planning workflow.
+Submits a natural-language travel request and executes the AI travel-planning workflow.
 
 ---
 
@@ -519,7 +533,7 @@ See `.env.example` for the complete configuration options.
 
 # 🧠 How the AI Workflow Works
 
-A typical request follows this general flow:
+A typical request follows this flow:
 
 ```text
 User Travel Request
@@ -548,27 +562,29 @@ Final Agent
 Structured Travel Plan
 ```
 
-The architecture allows different parts of the travel-planning problem to be handled independently before the final response is assembled.
+Each specialized agent focuses on a particular part of the travel-planning problem.
+
+The final agent combines the available information into a user-facing travel plan.
 
 ---
 
 # 📊 Caching
 
-Redis is used as an optional caching layer.
+Redis is an optional caching layer.
 
-Example configuration:
+Example:
 
 ```env
 CACHE_ENABLED=true
 ```
 
-When running through Docker Compose, the application can communicate with Redis through:
+When using Docker Compose, the internal Redis address can be:
 
 ```text
 redis://redis:6379/0
 ```
 
-Example cache TTL settings include:
+Example cache TTL configuration:
 
 ```env
 CACHE_TTL_AIRPORTS=604800
@@ -579,7 +595,7 @@ CACHE_TTL_WEATHER=600
 CACHE_TTL_DESTINATION=86400
 ```
 
-These values are optional and can be adjusted according to the application's requirements.
+These values can be adjusted according to application requirements.
 
 ---
 
@@ -615,7 +631,7 @@ docker compose logs --tail=100 redis
 docker compose logs --tail=100 postgres
 ```
 
-### Restart the application
+### Restart application
 
 ```powershell
 docker compose restart app
@@ -666,173 +682,151 @@ but not:
 .env
 ```
 
-Verify that `.env` is ignored before pushing:
+Verify that `.env` is ignored:
 
 ```powershell
 git check-ignore -v .env
 ```
 
-You can also verify that `.env` is not tracked:
+Verify that `.env` is not tracked:
 
 ```powershell
 git ls-files ".env"
 ```
 
-An empty result means Git is not tracking `.env`.
+An empty result means Git is not currently tracking `.env`.
 
 ---
 
-# ⚠️ External Service Limitations
+# ⚠️ External Service & Data Limitations
 
-TripMind AI depends on external APIs and services.
+TripMind AI depends on external APIs, services, and AI-generated planning.
 
-Individual integrations may be affected by:
+External information can be affected by:
 
-- Invalid API credentials
+- API availability
 - API rate limits
-- Subscription restrictions
+- Provider subscription restrictions
 - Unsupported API features
 - Provider outages
 - Network failures
-- Changes to external APIs
+- Changes to third-party APIs
+- AI-generated estimates
 
-Therefore, an external integration may occasionally return incomplete information even when the main application itself is running correctly.
+### Important
 
----
+Travel information displayed by the application should be treated as **planning assistance**, not as a guaranteed booking result.
 
-# 🛠️ Troubleshooting
+In particular:
 
-## Application is not running
+- Flight prices and schedules may not represent live bookable inventory.
+- Hotel prices and availability can change.
+- Weather information depends on the available weather source and forecast horizon.
+- AI-generated recommendations and estimated budgets should be independently verified before making travel or financial decisions.
 
-Check:
-
-```powershell
-docker compose ps
-```
-
-Then inspect:
-
-```powershell
-docker compose logs --tail=100 app
-```
+Always verify final flight, hotel, visa, weather, and booking information through the relevant official or booking provider before travelling.
 
 ---
 
-## Health endpoint fails
+# 🧪 Deployment Verification
 
-Run:
+The deployed application is available at:
 
-```powershell
-Invoke-WebRequest "http://localhost:8000/health" -UseBasicParsing
-```
+**[🚀 TripMind AI — Live Demo](https://trip-mind-ai-tau.vercel.app)**
 
-Then inspect:
+The production deployment has been tested for:
 
-```powershell
-docker compose logs --tail=100 app
-```
+- ✅ Website availability
+- ✅ Successful HTTP response
+- ✅ API configuration readiness
+- ✅ Required production credentials being configured
+- ✅ Successful AI travel-plan generation
+- ✅ Frontend-to-backend API communication
 
----
-
-## PostgreSQL connection error
-
-Start PostgreSQL:
-
-```powershell
-docker compose --profile local-db up -d postgres
-```
-
-Check:
-
-```powershell
-docker compose ps
-```
-
-If `.env` was changed, recreate the application container:
-
-```powershell
-docker compose up -d --force-recreate app
-```
+Production configuration includes the required Groq and PostgreSQL environment variables.
 
 ---
 
-## Redis connection problem
+# 🌐 Live Demo
 
-Check:
+<p align="center">
 
-```powershell
-docker compose ps
-```
+### 🚀 [Open TripMind AI](https://trip-mind-ai-tau.vercel.app)
 
-Then:
+</p>
 
-```powershell
-docker compose logs --tail=100 redis
-```
-
-When using Docker Compose, the expected internal Redis address is:
+Try a request such as:
 
 ```text
-redis://redis:6379/0
+Plan a 5 day trip from Mumbai to Tokyo starting October 15, 2026
+for 1 traveller.
+```
+
+Or:
+
+```text
+Plan a 7 day trip to Tokyo from Dhaka in April
+with a mid-range budget for 1 traveller.
+Include flights, hotels, weather, activities,
+and a detailed day-by-day itinerary.
 ```
 
 ---
 
-## External API errors
+# 💻 Source Code
 
-Check the application logs:
+**[View TripMind AI on GitHub](https://github.com/vishuu-patil-001/TripMind-AI)**
 
-```powershell
-docker compose logs --tail=100 app
-```
+---
 
-Verify:
+# 🎯 Project Highlights
 
-- API keys
-- Provider account limits
-- Subscription availability
-- Requested API functionality
-- Network connectivity
+TripMind AI demonstrates practical implementation of:
+
+- Multi-agent AI systems
+- LangGraph workflow orchestration
+- LangChain-based AI application development
+- Groq LLM integration
+- Model Context Protocol (MCP)
+- External API integration
+- Natural-language application interfaces
+- Travel research automation
+- Structured itinerary generation
+- PostgreSQL workflow persistence
+- Redis caching
+- FastAPI backend development
+- Docker containerization
+- Docker Compose development
+- Production environment configuration
+- REST API design
+- Frontend/backend integration
+- Environment-based secret management
 
 ---
 
 # 📌 Project Status
 
-TripMind AI currently demonstrates:
+**Status: Deployed and operational**
 
-- Full-stack AI travel planning
-- FastAPI backend
-- Web frontend
-- LangGraph multi-agent orchestration
-- Groq LLM integration
-- MCP-based external integrations
-- Flight research
-- Hotel research
-- Weather information
-- Destination research
-- Itinerary generation
-- Redis caching
-- PostgreSQL checkpoint persistence
-- Docker containerization
-- Docker Compose local development
-- Health monitoring
-- Environment-based configuration
+TripMind AI is currently available as a live web application and demonstrates an end-to-end AI travel-planning workflow from natural-language user input to a structured travel plan.
 
-The project demonstrates how multiple AI agents, external tools, caching, persistence, and a web interface can be combined into a practical AI application.
+The project is intended as a practical demonstration of building and deploying an AI-powered application that combines:
 
----
-
-# 🌐 Demo
-
-### Live Demo
-
-**[🚀 Try TripMind AI](YOUR_DEPLOYED_DEMO_URL)**
-
-> The live demo link will be added here once the application is deployed.
-
-### Source Code
-
-**[💻 GitHub Repository](https://github.com/vishuu-patil-001/TripMind-AI)**
+```text
+Natural Language
+       ↓
+FastAPI
+       ↓
+LangGraph
+       ↓
+Specialized AI Agents
+       ↓
+External Tools / APIs
+       ↓
+PostgreSQL / Redis
+       ↓
+Final Travel Plan
+```
 
 ---
 
@@ -850,13 +844,18 @@ See [`LICENSE`](./LICENSE) for the complete license text.
 
 Built as an AI-powered travel-planning project demonstrating:
 
-- Multi-agent AI systems
-- LangGraph workflow orchestration
+- Multi-agent AI architecture
+- LangGraph orchestration
 - MCP integrations
-- API integration
+- External API integration
 - Persistent workflow state
 - Redis caching
-- Dockerized application architecture
+- Dockerized architecture
+- FastAPI backend development
 - Full-stack web development
 
 ---
+
+<p align="center">
+  <strong>✈️ TripMind AI — Plan smarter. Research less. Travel better.</strong>
+</p>
