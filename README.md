@@ -847,6 +847,32 @@ Built as an AI-powered travel-planning project demonstrating:
 
 ---
 
+# Author
+
+## Vishwjit Pandurang Upase
+
+Full-Stack Developer
+
+**GitHub:**  
+https://github.com/vishuu-patil-001
+
+**LinkedIn:**  
+https://www.linkedin.com/in/mr-vishwjit-p-upase
+
+---
+
+# Repository
+
+**GitHub:**  
+https://github.com/vishuu-patil-001/TripMind-AI
+
+**Live Application:**  
+### 🚀 [Open TripMind AI](https://trip-mind-ai-tau.vercel.app)
+
+
+
+---
+
 <p align="center">
   <strong>✈️ TripMind AI — Plan smarter. Research less. Travel better.</strong>
 </p>
