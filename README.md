@@ -828,15 +828,6 @@ PostgreSQL / Redis
 Final Travel Plan
 ```
 
----
-
-# 📄 License
-
-This project is licensed under the **GNU General Public License v3.0**.
-
-See [`LICENSE`](./LICENSE) for the complete license text.
-
----
 
 ## 👨‍💻 Project
 
