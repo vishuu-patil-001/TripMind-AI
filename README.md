@@ -851,7 +851,7 @@ Built as an AI-powered travel-planning project demonstrating:
 
 ## Vishwjit Pandurang Upase
 
-Full-Stack Developer
+Full-Stack Developer + AI-Apllications
 
 **GitHub:**  
 https://github.com/vishuu-patil-001
